@@ -28,7 +28,7 @@ def sl_id_to_dob_gender(id_num):
             else:
               dob = datetime.date(year, 1, 1) + datetime.timedelta(days=days-1) 
                     
-        return dob.strftime("%Y-%m-%d"), gender
+        return dob.strftime("%Y-%m-%d, %A"), gender
  # New NIC number to birthday calc
     elif len(id_num) == 12:
         year = int(id_num[0:4])
@@ -52,7 +52,7 @@ def sl_id_to_dob_gender(id_num):
                      dob = datetime.date(year, 1, 1) + datetime.timedelta(days=days-1) 
             else:
               dob = datetime.date(year, 1, 1) + datetime.timedelta(days=days-1)  
-        return dob.strftime("%Y-%m-%d"), gender
+        return dob.strftime("%Y-%m-%d, %A"), gender
     else:
         return "Invalid ID number", None
 

@@ -15,7 +15,9 @@ def sl_id_to_dob_gender(id_num):
             gender = "Male"
             if not (year % 4 == 0) and (year % 100 != 0 or year % 400 == 0):
                 if days >= 60:
-                    dob = datetime.date(year, 1, 1) + datetime.timedelta(days=days-2)  
+                    dob = datetime.date(year, 1, 1) + datetime.timedelta(days=days-2)
+                elif days < 60:
+                    dob = datetime.date(year, 1, 1) + datetime.timedelta(days=days-1)    
             else:
               dob = datetime.date(year, 1, 1) + datetime.timedelta(days=days-1) 
                     

@@ -10,14 +10,21 @@ def sl_id_to_dob_gender(id_num):
             year += 1900
             days -= 500
             gender = "Female"
+            if not (year % 4 == 0) and (year % 100 != 0 or year % 400 == 0):
+                if days >= 60:
+                    dob = datetime.date(year, 1, 1) + datetime.timedelta(days=days-2) 
+                elif days<60:
+                     dob = datetime.date(year, 1, 1) + datetime.timedelta(days=days-1) 
+            else:
+              dob = datetime.date(year, 1, 1) + datetime.timedelta(days=days-1) 
         else:
             year += 1900
             gender = "Male"
             if not (year % 4 == 0) and (year % 100 != 0 or year % 400 == 0):
                 if days >= 60:
-                    dob = datetime.date(year, 1, 1) + datetime.timedelta(days=days-2)
-                elif days < 60:
-                    dob = datetime.date(year, 1, 1) + datetime.timedelta(days=days-1)    
+                    dob = datetime.date(year, 1, 1) + datetime.timedelta(days=days-2) 
+                elif days<60:
+                     dob = datetime.date(year, 1, 1) + datetime.timedelta(days=days-1) 
             else:
               dob = datetime.date(year, 1, 1) + datetime.timedelta(days=days-1) 
                     
@@ -29,20 +36,27 @@ def sl_id_to_dob_gender(id_num):
         if days > 500:
             days -= 500
             gender = "Female"
+            if not (year % 4 == 0) and (year % 100 != 0 or year % 400 == 0):
+                if days >= 60:
+                    dob = datetime.date(year, 1, 1) + datetime.timedelta(days=days-2) 
+                elif days<60:
+                     dob = datetime.date(year, 1, 1) + datetime.timedelta(days=days-1) 
+            else:
+              dob = datetime.date(year, 1, 1) + datetime.timedelta(days=days-1) 
         else:
             gender = "Male"
             if not (year % 4 == 0) and (year % 100 != 0 or year % 400 == 0):
                 if days >= 60:
                     dob = datetime.date(year, 1, 1) + datetime.timedelta(days=days-2) 
-                elif days < 60:
-                    dob = datetime.date(year, 1, 1) + datetime.timedelta(days=days-1)  
+                elif days<60:
+                     dob = datetime.date(year, 1, 1) + datetime.timedelta(days=days-1) 
             else:
               dob = datetime.date(year, 1, 1) + datetime.timedelta(days=days-1)  
         return dob.strftime("%Y-%m-%d"), gender
     else:
         return "Invalid ID number", None
 
-id_num = input("Enter your Sri Lankan Old or New ID card number: ")
+id_num = input("Enter your Sri Lanka Old or New ID card number: ")
 dob, gender = sl_id_to_dob_gender(id_num)
 
 if dob == "Invalid ID number":

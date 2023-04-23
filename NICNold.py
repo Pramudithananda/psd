@@ -61,24 +61,25 @@ dob, gender = sl_id_to_dob_gender(id_num)
  #New NIC to Old NIC _______
 def old_nic_1(nic:str) ->int:
     part_one = nic[2:7]
-    return int(part_one) 
+    return int(part_one) 
+
 def old_nic_2(nic:str) ->int:
     part_two = nic[7:12]
     return int(part_two)  
 
  #Old NIC to New NIC _________
 def new_nic1(nic:str)->int:
-    part_two = 19
-    return int(part_two)
+    part_one = 19
+    return int(part_one)
 def new_nic2(nic:str)->int:
-    part_five = nic[:5]
-    return int(part_five)  
+    part_two = nic[:5]
+    return int(part_two)  
 def new_nic3(nic:str)->int:
-    part_fore = 0
-    return int(part_fore)   
+    part_three = 0
+    return int(part_three)   
 def new_nic4(nic:str):
-    part_six = nic[5:9]
-    return (part_six)  
+    part_fore = nic[5:9]
+    return (part_fore)  
     
  #print resault__________
 if dob == "Invalid ID number":

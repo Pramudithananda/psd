@@ -9,6 +9,7 @@ def sl_id_to_dob_gender(id_num):
             year += 1900
             days -= 500
             gender = "Female"
+            # Not a leap year then
             if not (year % 4 == 0) and (year % 100 != 0 or year % 400 == 0):
                 if days >= 60:
                     dob = datetime.date(year, 1, 1) + datetime.timedelta(days=days-2) 
@@ -19,6 +20,7 @@ def sl_id_to_dob_gender(id_num):
         else:
             year += 1900
             gender = "Male"
+            # Not a leap year then
             if not (year % 4 == 0) and (year % 100 != 0 or year % 400 == 0):
                 if days >= 60:
                     dob = datetime.date(year, 1, 1) + datetime.timedelta(days=days-2) 
@@ -35,6 +37,7 @@ def sl_id_to_dob_gender(id_num):
         if days > 500:
             days -= 500
             gender = "Female"
+            # Not a leap year then
             if not (year % 4 == 0) and (year % 100 != 0 or year % 400 == 0):
                 if days >= 60:
                     dob = datetime.date(year, 1, 1) + datetime.timedelta(days=days-2) 
@@ -44,6 +47,7 @@ def sl_id_to_dob_gender(id_num):
               dob = datetime.date(year, 1, 1) + datetime.timedelta(days=days-1) 
         else:
             gender = "Male"
+            # Not a leap year then
             if not (year % 4 == 0) and (year % 100 != 0 or year % 400 == 0):
                 if days >= 60:
                     dob = datetime.date(year, 1, 1) + datetime.timedelta(days=days-2) 

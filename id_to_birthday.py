@@ -64,11 +64,11 @@ while True:
     print("Your gender is:", gender,"\n")
     if len(id_num) == 12:
         if int(id_num[0:4]) < 2000:
-            print(  f"\nYour Old Nic :{old_nic_1(id_num)}{old_nic_2(id_num)}V")
+            print(  f"Your Old Nic :{old_nic_1(id_num)}{old_nic_2(id_num)}V")
         else:
-            print("\nYour Old Nic : you don't have old one")
+            print("Your Old Nic : you don't have old one")
     else:
-       print(f"\nYour New Nic : {new_nic1(id_num)}{new_nic2(id_num)}{new_nic3(id_num)}{new_nic4(id_num)}")
+       print(f"Your New Nic : {new_nic1(id_num)}{new_nic2(id_num)}{new_nic3(id_num)}{new_nic4(id_num)}")
 
     print("-" * 120)
     break

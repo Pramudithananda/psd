@@ -39,12 +39,12 @@ while True:
         continue
 
     # Determine gender based on number of days
-    if 0 <= num_of_days <= 367:
+    if 0 <= num_of_days <= 366:
         gender = 'male'
         if not (birth_year % 4 == 0 and (birth_year % 100 != 0 or birth_year % 400 == 0)):
             if num_of_days > 60:
                 num_of_days -= 1
-    elif 500 <= num_of_days <= 867:
+    elif 500 <= num_of_days <= 866:
         gender = 'female'
         num_of_days -= 500
         if not (birth_year % 4 == 0 and (birth_year % 100 != 0 or birth_year % 400 == 0)):

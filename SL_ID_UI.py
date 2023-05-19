@@ -34,7 +34,7 @@ def get_nic_info():
     if len(id_num) == 12 and id_num.isdigit:
         birth_year = int(id_num[0:4])
         num_of_days = int(id_num[4:7])
-    elif len(id_num) == 10 and id_num[0:9].isdigit and (id_num[-1] == 'v' or id_num[-1] == 'V')and id_num[:2] != '00':
+    elif len(id_num) == 10 and id_num[0:9].isdigit and (id_num[-1] == 'v' or id_num[-1] == 'V')and int(id_num[:2]) >= 30:
         birth_year = 1900 + int(id_num[0:2]) if int(id_num[0:2]) >= 0 and int(id_num[0:2]) >= 21 else 2000 + int(id_num[0:2])
         num_of_days = int(id_num[2:5])
     else:

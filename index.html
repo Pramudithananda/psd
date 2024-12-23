@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products Page</title>
+    <style>
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .product {
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .buy-now-btn {
+            background-color: #0070ba;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 15px 0;
+            width: 200px;
+            transition: background-color 0.3s;
+        }
+        .buy-now-btn:hover {
+            background-color: #003087;
+        }
+        .price {
+            font-size: 24px;
+            color: #2c2e2f;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+        .product-image {
+            width: 100%;
+            max-width: 200px;
+            height: auto;
+            margin-bottom: 15px;
+        }
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        .quantity-btn {
+            background-color: #e9ecef;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .quantity-btn:hover {
+            background-color: #dee2e6;
+        }
+        .quantity-input {
+            width: 60px;
+            text-align: center;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        .total-price {
+            color: #28a745;
+            font-size: 18px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="products-grid">
+            <div class="product">
+                <img src="/api/placeholder/200/200" alt="Product 1" class="product-image">
+                <h2>Product 1</h2>
+                <p class="price">$99.99</p>
+                <div class="quantity-controls">
+                    <button class="quantity-btn" onclick="updateQuantity('product1', -1)">-</button>
+                    <input type="number" id="quantity-product1" class="quantity-input" value="1" min="1" onchange="updateTotalPrice('product1')">
+                    <button class="quantity-btn" onclick="updateQuantity('product1', 1)">+</button>
+                </div>
+                <p class="total-price" id="total-product1">Total: $99.99</p>
+                <button class="buy-now-btn" onclick="goToPayment('Product 1', 99.99, 'product1')">Buy Now</button>
+            </div>
+
+            <div class="product">
+                <img src="/api/placeholder/200/200" alt="Product 2" class="product-image">
+                <h2>Product 2</h2>
+                <p class="price">$149.99</p>
+                <div class="quantity-controls">
+                    <button class="quantity-btn" onclick="updateQuantity('product2', -1)">-</button>
+                    <input type="number" id="quantity-product2" class="quantity-input" value="1" min="1" onchange="updateTotalPrice('product2')">
+                    <button class="quantity-btn" onclick="updateQuantity('product2', 1)">+</button>
+                </div>
+                <p class="total-price" id="total-product2">Total: $149.99</p>
+                <button class="buy-now-btn" onclick="goToPayment('Product 2', 149.99, 'product2')">Buy Now</button>
+            </div>
+
+            <div class="product">
+                <img src="/api/placeholder/200/200" alt="Product 3" class="product-image">
+                <h2>Product 3</h2>
+                <p class="price">$199.99</p>
+                <div class="quantity-controls">
+                    <button class="quantity-btn" onclick="updateQuantity('product3', -1)">-</button>
+                    <input type="number" id="quantity-product3" class="quantity-input" value="1" min="1" onchange="updateTotalPrice('product3')">
+                    <button class="quantity-btn" onclick="updateQuantity('product3', 1)">+</button>
+                </div>
+                <p class="total-price" id="total-product3">Total: $199.99</p>
+                <button class="buy-now-btn" onclick="goToPayment('Product 3', 199.99, 'product3')">Buy Now</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function updateQuantity(productId, change) {
+            const input = document.getElementById(`quantity-${productId}`);
+            let newValue = parseInt(input.value) + change;
+            if (newValue < 1) newValue = 1;
+            input.value = newValue;
+            updateTotalPrice(productId);
+        }
+
+        function updateTotalPrice(productId) {
+            const quantity = parseInt(document.getElementById(`quantity-${productId}`).value);
+            let basePrice;
+            switch(productId) {
+                case 'product1':
+                    basePrice = 99.99;
+                    break;
+                case 'product2':
+                    basePrice = 149.99;
+                    break;
+                case 'product3':
+                    basePrice = 199.99;
+                    break;
+            }
+            const total = (basePrice * quantity).toFixed(2);
+            document.getElementById(`total-${productId}`).textContent = `Total: $${total}`;
+        }
+
+        function goToPayment(productName, basePrice, productId) {
+            const quantity = parseInt(document.getElementById(`quantity-${productId}`).value);
+            const totalPrice = (basePrice * quantity).toFixed(2);
+            const params = new URLSearchParams({
+                product: productName,
+                price: totalPrice,
+                quantity: quantity
+            });
+            window.location.href = `payment.html?${params.toString()}`;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Page</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+        .payment-box {
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .order-summary {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        .total {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 10px;
+            border-top: 2px solid #ddd;
+            padding-top: 10px;
+        }
+        .back-btn {
+            background-color: #6c757d;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        .back-btn:hover {
+            background-color: #5a6268;
+        }
+        .order-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .order-details span {
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button class="back-btn" onclick="window.location.href='index.html'">← Back to Products</button>
+        <div class="payment-box">
+            <h2>Complete Your Purchase</h2>
+            
+            <div class="order-summary">
+                <h3>Order Summary</h3>
+                <div class="order-details">
+                    <p>Product: <span id="product-name"></span></p>
+                    <p>Quantity: <span id="quantity"></span></p>
+                    <p>Price per item: <span id="price-per-item"></span></p>
+                </div>
+                <div class="total" id="total-amount"></div>
+            </div>
+
+            <div id="paypal-button-container"></div>
+        </div>
+    </div>
+
+    <script src="https://www.paypal.com/sdk/js?client-id=Ae0ErgPA5kmcoQ2LfFMa5DWeNfKXf2DTLrpw06bHtjkECT8d-GuuRh29_0VgcngqM2nd9KqOrvKoN0-l&currency=USD"></script>
+    <script>
+        // Get URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const productName = urlParams.get('product');
+        const totalPrice = urlParams.get('price');
+        const quantity = urlParams.get('quantity');
+        const pricePerItem = (parseFloat(totalPrice) / parseInt(quantity)).toFixed(2);
+
+        // Update the page with product details
+        document.getElementById('product-name').textContent = productName;
+        document.getElementById('quantity').textContent = quantity;
+        document.getElementById('price-per-item').textContent = `$${pricePerItem}`;
+        document.getElementById('total-amount').textContent = `Total: $${totalPrice}`;
+        
+        paypal.Buttons({
+            style: {
+                layout: 'vertical',
+                color:  'blue',
+                shape:  'rect',
+                label:  'paypal'
+            },
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: totalPrice
+                        },
+                        description: `${productName} (Quantity: ${quantity})`
+                    }]
+                });
+            },
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    alert('Transaction completed by ' + details.payer.name.given_name);
+                    // Redirect to success page
+                    // window.location.href = 'success.html';
+                });
+            },
+            onError: function(err) {
+                console.error('Payment Error:', err);
+                alert('There was an error processing your payment. Please try again.');
+            }
+        }).render('#paypal-button-container');
+    </script>
+</body>
+</html>
